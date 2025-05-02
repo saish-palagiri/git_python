@@ -1,0 +1,96 @@
+
+import streamlit as st
+
+# Function to reset form variables
+def reset_form():
+    st.session_state["length"] = 0
+    st.session_state["width"] = 0
+    st.session_state["base"] = 0
+    st.session_state["height"] = 0
+    st.session_state["base1"] = 0
+    st.session_state["base2"] = 0
+    st.session_state["solve"] = "No"
+
+# Function to reset session state variables
+def reset_state():
+    reset_form()  # Reset the form-related session state variables
+
+# Initialize session state if not already done
+if 'initialized' not in st.session_state:
+    st.session_state.initialized = True
+    reset_form()  # Set the initial form values to 0
+
+# UI for the area calculator
+st.title("Welcome to the Area Calculator")
+st.write("This area calculator can calculate the area of a rectangle, square, triangle, trapezoid, or parallelogram.")
+st.write("Please select the shape you want to find the area of from the dropdown menu below.")
+
+# Shape selection
+formula = st.selectbox("Select the shape you want to find the area of", ["Rectangle", "Square", "Triangle", "Trapezoid", "Parallelogram"])
+
+# Reset the form when the "Restart App" button is clicked
+if st.button("Restart App"):
+    reset_state()  # Reset form-related session state variables
+    st.rerun()  # Force the app to rerun to reflect the reset
+
+# Shape calculations
+if formula == 'Rectangle':
+    st.write("A = L x W")
+    solve = st.radio("Would you like python to solve a problem?", ("Yes", "No"), key="solve")
+    if solve == "Yes":
+        length = st.number_input("Enter the length", key="length", value=st.session_state.get("length", 0))
+        width = st.number_input("Enter the width", key="width", value=st.session_state.get("width", 0))
+        if st.button("Submit"):
+            area = length * width
+            st.write(f'The area of the rectangle is {area}')
+    else:
+        st.write('Okay, you can solve it manually.')
+
+elif formula == 'Square':
+    st.write('A = L x W')
+    solve = st.radio("Would you like python to solve a problem?", ("Yes", "No"), key="solve")
+    if solve == "Yes":
+        length = st.number_input("Enter the length", key="length", value=st.session_state.get("length", 0))
+        width = st.number_input("Enter the width", key="width", value=st.session_state.get("width", 0))
+        if st.button("Submit"):
+            area = length * width
+            st.write(f'The area of the square is {area}')
+    else:
+        st.write('Okay, you can solve it manually.')
+
+elif formula == 'Triangle':
+    st.write('A = B x H / 2')
+    solve = st.radio("Would you like python to solve a problem?", ("Yes", "No"), key="solve")
+    if solve == "Yes":
+        base = st.number_input("Enter the base", key="base", value=st.session_state.get("base", 0))
+        height = st.number_input("Enter the height", key="height", value=st.session_state.get("height", 0))
+        if st.button("Submit"):
+            area = base * height / 2
+            st.write(f'The area of the triangle is {area}')
+    else:
+        st.write('Okay, you can solve it manually.')
+
+elif formula == 'Trapezoid':
+    st.write('A = (B1 + B2) / 2 x H')
+    solve = st.radio("Would you like python to solve a problem?", ("Yes", "No"), key="solve")
+    if solve == "Yes":
+        base1 = st.number_input("Enter the first base (B1)", key="base1", value=st.session_state.get("base1", 0))
+        base2 = st.number_input("Enter the second base (B2)", key="base2", value=st.session_state.get("base2", 0))
+        height = st.number_input("Enter the height", key="height", value=st.session_state.get("height", 0))
+        if st.button("Submit"):
+            area = (base1 + base2) / 2 * height
+            st.write(f'The area of the trapezoid is {area}')
+    else:
+        st.write('Okay, you can solve it manually.')
+
+elif formula == 'Parallelogram':
+    st.write('A = B x H')
+    solve = st.radio("Would you like python to solve a problem?", ("Yes", "No"), key="solve")
+    if solve == "Yes":
+        base = st.number_input("Enter the base", key="base", value=st.session_state.get("base", 0))
+        height = st.number_input("Enter the height", key="height", value=st.session_state.get("height", 0))
+        if st.button("Submit"):
+            area = base * height
+            st.write(f'The area of the parallelogram is {area}')
+    else:
+        st.write('Okay, you can solve it manually.')
